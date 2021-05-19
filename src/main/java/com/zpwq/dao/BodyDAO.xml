@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpwq.dao.BodyDAO">
+	<insert id="addBody" useGeneratedKeys="true" keyProperty="id" parameterType="com.zpwq.bean.Body">
+		insert into body
+		(	
+			taskId,
+			bodyType,   
+			path, 
+			name,     
+			modfiyDate, 
+			extend1,    
+			extend2  
+		)
+		values
+		(	
+			#{taskId},
+			#{bodyType},   
+			#{path}, 
+			#{name},     
+			sysdate, 
+			#{extend1},    
+			#{extend2}
+		)
+	</insert>
+	<update id="updateBody" parameterType="com.zpwq.bean.Body">
+		update body set
+			taskId = #{taskId},
+			bodyType = #{bodyType},
+			path = #{path},
+			name = #{name},
+			modfiyDate = sysdate,
+			extend1 = #{extend1},
+			extend2 = #{extend2}
+		where id = #{id}
+	</update>
+	<select id="getBody" parameterType="int" resultType="com.zpwq.bean.Body">
+		select * from body where id = #{id} and flag = '1'
+	</select>
+	<select id="getBodyByTaskId" parameterType="int" resultType="com.zpwq.bean.Body">
+		select * from body where taskId = #{taskId} and flag = '1'
+	</select>
+	<update id="delBody" parameterType="int">
+		update body set flag='0' where id = #{id}
+	</update>
+
+</mapper>

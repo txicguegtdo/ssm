@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpwq.dao.RuleDAO">
+	<insert id="addRule" useGeneratedKeys="true" keyProperty="id" parameterType="com.zpwq.bean.Rule">
+		insert into rule
+		(
+			bodyId,
+			taskId,
+			ruleCode,
+			ruleType,
+			ruleValue,
+			extend1,
+			extend2
+		)
+		values
+		(
+			#{bodyId},
+			#{taskId},
+			#{ruleCode},
+			#{ruleType},
+			#{ruleValue},
+			#{extend1},
+			#{extend2}
+		)
+	</insert>
+	<update id="updateRule" parameterType="com.zpwq.bean.Rule">
+		update rule set
+			bodyId = #{bodyId},
+			taskId = #{taskId},
+			ruleCode = #{ruleCode},
+			ruleType = #{ruleType},
+			ruleValue = #{ruleValue},
+			extend1 = #{extend1},
+			extend2 = #{extend2}
+		where id = #{id}
+	</update>
+	<select id="getRule" parameterType="int" resultType="com.zpwq.bean.Rule">
+		select * from rule where id = #{id} and flag='1'
+	</select>
+	<select id="getRuleByBodyId" parameterType="int" resultType="com.zpwq.bean.Rule">
+		select * from rule where bodyId = #{id} and flag='1'
+	</select>
+	<update id="delRule" parameterType="int">
+		update rule set flag = '0' where id = #{id}
+	</update>
+		<select id="getRuleByTaskId" parameterType="int" resultType="com.zpwq.bean.Rule">
+		select * from rule where taskId = #{id} and flag='1'
+	</select>
+	
+</mapper>

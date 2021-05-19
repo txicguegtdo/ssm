@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpwq.dao.TaskDAO">
+	<insert id="addTask" useGeneratedKeys="true" keyProperty="id" parameterType="com.zpwq.bean.Task">
+		insert into task 
+		(	
+			code,
+			desc,
+			email,
+			host,
+			pwd,
+			toSend,
+			toCC,
+			toBCC,
+			jobType,
+			jobTime,
+			creater,
+			createDate,
+			modifyDate,
+			extend1
+		) 
+		values 
+		(
+			#{code},
+			#{desc},
+			#{email},
+			#{host},
+			#{pwd},
+			#{toSend},
+			#{toCC},
+			#{toBCC},
+			#{jobType},
+			#{jobTime},
+			#{creater},
+			sysdate,
+			#{modifyDate},
+			#{extend1}
+		)
+	</insert>
+	<update id="updateTask" parameterType="com.zpwq.bean.Task">
+		update task set
+			code = #{code},
+			desc = #{desc},
+			email = #{email},
+			host = #{host},
+			pwd = #{pwd},
+			toSend = #{toSend},
+			toCC = #{toCC},
+			toBCC = #{toBCC},
+			jobType = #{jobType},
+			jobTime = #{jobTime},
+			modifyDate = sysdate,
+			extend1 = #{extend1}
+		where id = #{id}
+	</update>
+	<update id="delTask" parameterType="int">
+		update task set flag='0' where id = #{id}
+	</update>
+	<select id="getTask" parameterType="int" resultType="com.zpwq.bean.Task">
+		select * from task where id=#{id} and flag='1'
+	</select>
+	<select id="getTaskByUser" parameterType="int" resultType="com.zpwq.bean.Task">
+		select * from task where creater = #{id} and flag='1'
+	</select>
+	
+	
+</mapper>
